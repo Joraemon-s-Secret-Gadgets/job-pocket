@@ -1,23 +1,18 @@
 import json
 import re
-import os
 import sys
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
-from langchain_ollama import ChatOllama  # runpod 적용 시 제거 예정
 from langchain_openai import ChatOpenAI
 
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from services import call_runpod_ollama
 from utils import ensure_faiss_index_dir
-
-load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 SAMPLE_PATH = BASE_DIR / "essay_samples.json"
@@ -27,18 +22,16 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
 from retriever import HybridRetriever
-from common import (
-    VECTOR_DB_CONFIG,
-    OLLAMA_CONFIG,
+from common.config import (
     OPENAI_API_CONFIG,
     GROQ_API_CONFIG,
     EMBEDDING_CONFIG,
+    RETRIEVER_CONFIG,
 )
 
-
-# Ollama = runpod 적용 시 제거 예정
-local_llm = ChatOllama(**OLLAMA_CONFIG)
-
+# -----------------------------
+# 모델 설정
+# -----------------------------
 llm_gpt = ChatOpenAI(**OPENAI_API_CONFIG)
 
 llm_groq = ChatGroq(**GROQ_API_CONFIG)
@@ -47,17 +40,11 @@ hf_embeddings = HuggingFaceEmbeddings(**EMBEDDING_CONFIG)
 
 faiss_index_dir = ensure_faiss_index_dir(
     directory="data",
-    folder_name="faiss_index_hight",
+    folder_name="faiss_index_high",
     folder_url="https://drive.google.com/drive/folders/1y7UKpJGDh-wMI2koNVzWywXW7sL-ee3D",
 )
 
-selfintro_retriever = HybridRetriever(
-    db_config=VECTOR_DB_CONFIG,
-    embeddings=hf_embeddings,
-    top_n=3,
-    initial_k=5,
-    index_folder=str(ROOT_DIR / "faiss_index_high"),
-)
+selfintro_retriever = HybridRetriever(embeddings=hf_embeddings, **RETRIEVER_CONFIG)
 
 OVERSTATEMENT_PATTERNS = [
     "차별화된 경쟁력을 확보",
@@ -82,7 +69,7 @@ def choose_refine_llm(selected_model: str):
 
 
 def parse_user_profile(user_profile: tuple) -> dict[str, str]:
-    resume_str = user_profile[4]
+    resume_str = user_profile[3]
 
     try:
         resume_data = json.loads(resume_str) if resume_str else {}
@@ -672,84 +659,6 @@ def get_refine_system_prompt(question_type: str) -> str:
 # -----------------------------
 # 생성 단계
 # -----------------------------
-def build_local_draft(
-    user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini"
-) -> str:
-    profile = parse_user_profile(user_profile)
-    parsed = parse_user_request(user_message, selected_model)
-    sample_context = get_sample_context(
-        selected_model, profile
-    )  # profile 정보 기반 sample 검색
-
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", get_local_system_prompt(parsed["question_type"])),
-            (
-                "human",
-                """
-[지원자 정보]
-- 성별: {gender}
-- 학교: {school}
-- 전공: {major}
-- 직무 관련 경험: {exp}
-- 수상 및 대외활동: {awards}
-- 기술 스택 / 자격증: {tech}
-
-[사용자 요청 원문]
-{user_message}
-
-[실제 지원 정보]
-- 실제 지원 회사명: {company}
-- 실제 지원 직무명: {job}
-- 문항: {question}
-- 문항 유형: {question_type}
-- 글자 수 제한: {char_limit}
-
-[유사 샘플 패턴 요약]
-{sample_summary}
-
-[샘플 기반 작성 규칙]
-{style_rules}
-
-[유사 샘플 원문 발췌]
-{sample_excerpt}
-
-요구사항:
-- 샘플은 표현 패턴과 강점 서술 방식을 참고하는 용도로만 활용하라.
-- 실제 회사명과 직무명은 사용자 입력 기준으로만 반영하라.
-- 샘플 문장을 베끼지 말고, 사용자 이력으로 새롭게 써라.
-- 사용자를 단순히 분석 툴을 쓴 사람처럼 쓰지 말고, 데이터를 구조화하고 기준을 정리해 활용 가능한 형태로 연결한 사람처럼 보이게 하라.
-- 자기소개서 본문 초안만 써라.
-        """,
-            ),
-        ]
-    )
-
-    chain = prompt | local_llm | StrOutputParser()
-    result = chain.invoke(
-        {
-            "gender": profile["gender"],
-            "school": profile["school"],
-            "major": profile["major"],
-            "exp": profile["exp"],
-            "awards": profile["awards"],
-            "tech": profile["tech"],
-            "user_message": parsed["raw"],
-            "company": parsed["company"] or "미기재",
-            "job": parsed["job"] or "미기재",
-            "question": parsed["question"] or "미기재",
-            "question_type": parsed["question_type"],
-            "char_limit": parsed["char_limit"] or "미기재",
-            "sample_summary": sample_context["sample_summary"],
-            "style_rules": sample_context["style_rules"],
-            "sample_excerpt": sample_context["sample_excerpt"] or "없음",
-        }
-    )
-
-    return clean_text(remove_forbidden_headers(result))
-
-
-# 4/21 runpod serverless 대응 수정
 def build_draft_with_ollama(
     user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini"
 ) -> str:
@@ -829,6 +738,7 @@ def build_draft_with_ollama(
     return clean_text(remove_forbidden_headers(result))
 
 
+
 def regenerate_local_draft_if_needed(
     user_message: str,
     user_profile: tuple,
@@ -840,9 +750,7 @@ def regenerate_local_draft_if_needed(
     working_message = user_message
 
     for attempt in range(max_attempts):
-        draft = build_local_draft(
-            working_message, user_profile, selected_model
-        )  # build_draft_with_ollama(working_message, user_profile, selected_model)
+        draft = build_draft_with_ollama(working_message, user_profile, selected_model)
         is_ok, reason = score_local_draft(draft, parsed)
         last_text = draft
 
