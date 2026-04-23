@@ -1,7 +1,8 @@
 #  frontend/utils/api_client.py
+import os
 import requests
 
-BASE_URL = "http://localhost:8000/api"
+BASE_URL = os.getenv('API_BASE_URL')
 
 def login_api(email, password):
     res = requests.post(f"{BASE_URL}/auth/login", json={"email": email, "password": password})
