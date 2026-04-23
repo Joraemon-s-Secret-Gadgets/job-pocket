@@ -9,12 +9,13 @@ from dotenv import load_dotenv
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
-from langchain_ollama import ChatOllama # runpod 적용 시 제거 예정
+from langchain_ollama import ChatOllama  # runpod 적용 시 제거 예정
 from langchain_openai import ChatOpenAI
 
 from langchain_huggingface import HuggingFaceEmbeddings
 
-from .chat_ollama import call_runpod_ollama 
+from services import call_runpod_ollama
+from utils import ensure_faiss_index_dir
 
 load_dotenv()
 
@@ -26,61 +27,37 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
 from retriever import HybridRetriever
-from common.config import VECTOR_DB_CONFIG, OLLAMA_CONFIG, OPENAI_API_CONFIG, GROQ_API_CONFIG, EMBEDDING_CONFIG
+from common import (
+    VECTOR_DB_CONFIG,
+    OLLAMA_CONFIG,
+    OPENAI_API_CONFIG,
+    GROQ_API_CONFIG,
+    EMBEDDING_CONFIG,
+)
 
-# -----------------------------
-# DB 연결 설정
-# -----------------------------
-
-# DB_CONFIG = {
-#     'host': os.getenv('VECTOR_DB_URL'),
-#     'port': 3306,
-#     'user': os.getenv('MYSQL_VECTOR_USER'),
-#     'password': os.getenv('MYSQL_VECTOR_PASSWORD'),
-#     'db': 'job_pocket_vector',
-#     'charset': 'utf8mb4'    
-# }
-
-# -----------------------------
-# 모델 설정
-# -----------------------------
 
 # Ollama = runpod 적용 시 제거 예정
-local_llm = ChatOllama(
-    # model="exaone3.5:7.8b",
-    # base_url="http://localhost:11434",
-    # temperature=0.9,
-    **OLLAMA_CONFIG
-)
+local_llm = ChatOllama(**OLLAMA_CONFIG)
 
-llm_gpt = ChatOpenAI(
-    # model="gpt-4o-mini",
-    # temperature=0.55,
-    **OPENAI_API_CONFIG
-)
+llm_gpt = ChatOpenAI(**OPENAI_API_CONFIG)
 
-llm_groq = ChatGroq(
-    # model="openai/gpt-oss-120b",
-    # temperature=0.65,
-    # top_p=1,
-    # stop=None,
-    **GROQ_API_CONFIG
-)
+llm_groq = ChatGroq(**GROQ_API_CONFIG)
 
-hf_embeddings = HuggingFaceEmbeddings(
-    # model_name="Qwen/Qwen3-Embedding-0.6B",
-    # model_kwargs={'device': 'cpu'}, # GPU 없으면 'cpu'
-    # encode_kwargs={'normalize_embeddings': True}
-    **EMBEDDING_CONFIG
+hf_embeddings = HuggingFaceEmbeddings(**EMBEDDING_CONFIG)
+
+faiss_index_dir = ensure_faiss_index_dir(
+    directory="data",
+    folder_name="faiss_index_hight",
+    folder_url="https://drive.google.com/drive/folders/1y7UKpJGDh-wMI2koNVzWywXW7sL-ee3D",
 )
 
 selfintro_retriever = HybridRetriever(
     db_config=VECTOR_DB_CONFIG,
     embeddings=hf_embeddings,
-    top_n=3,       
+    top_n=3,
     initial_k=5,
-    index_folder= str(ROOT_DIR / "faiss_index_high") # 4/22 추후 드라이브 경로로 수정 예정
-)  
+    index_folder=str(ROOT_DIR / "faiss_index_high"),
+)
 
 OVERSTATEMENT_PATTERNS = [
     "차별화된 경쟁력을 확보",
@@ -170,7 +147,17 @@ def repetition_ratio(text: str) -> float:
 def detect_question_type(user_message: str) -> str:
     text = user_message.lower()
 
-    if any(k in text for k in ["지원 이유", "지원이유", "지원 동기", "지원동기", "왜 지원", "입사 이유"]):
+    if any(
+        k in text
+        for k in [
+            "지원 이유",
+            "지원이유",
+            "지원 동기",
+            "지원동기",
+            "왜 지원",
+            "입사 이유",
+        ]
+    ):
         return "motivation"
     if any(k in text for k in ["입사 후 포부", "포부", "입사후"]):
         return "future_goal"
@@ -262,8 +249,11 @@ def parse_user_request_regex(user_message: str) -> dict[str, Any]:
 def llm_parse_user_request(user_message: str, selected_model: str) -> dict[str, Any]:
     active_llm = choose_refine_llm(selected_model)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 너는 자기소개서 요청 문장을 구조화하는 파서다.
 반드시 JSON만 출력하라.
 키는 아래만 사용하라:
@@ -274,12 +264,17 @@ company, job, question, char_limit, question_type
 - question_type은 아래 중 하나만:
   motivation, future_goal, collaboration, problem_solving, growth, general
 - 사용자의 표현을 과도하게 바꾸지 말고 핵심만 추출
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 사용자 요청:
 {user_message}
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
     raw = chain.invoke({"user_message": user_message}).strip()
@@ -288,7 +283,7 @@ company, job, question, char_limit, question_type
         start = raw.find("{")
         end = raw.rfind("}")
         if start != -1 and end != -1:
-            raw = raw[start:end + 1]
+            raw = raw[start : end + 1]
 
         data = json.loads(raw)
         return {
@@ -296,7 +291,8 @@ company, job, question, char_limit, question_type
             "job": str(data.get("job", "") or "").strip(),
             "question": str(data.get("question", "") or "").strip(),
             "char_limit": data.get("char_limit", None),
-            "question_type": str(data.get("question_type", "") or "").strip() or "general",
+            "question_type": str(data.get("question_type", "") or "").strip()
+            or "general",
         }
     except Exception:
         return {
@@ -308,13 +304,13 @@ company, job, question, char_limit, question_type
         }
 
 
-def parse_user_request(user_message: str, selected_model: str = "GPT-4o-mini") -> dict[str, Any]:
+def parse_user_request(
+    user_message: str, selected_model: str = "GPT-4o-mini"
+) -> dict[str, Any]:
     base = parse_user_request_regex(user_message)
 
     needs_llm = (
-        not base["company"]
-        or not base["job"]
-        or base["question_type"] == "general"
+        not base["company"] or not base["job"] or base["question_type"] == "general"
     )
 
     if needs_llm:
@@ -365,9 +361,11 @@ def load_raw_samples() -> list[str]:
         return [str(x).strip() for x in raw if str(x).strip()]
     return []
 
+
 def retrieve_raw_samples(query: str) -> list[str]:
     search_results = selfintro_retriever.invoke(query)
     return [doc.page_content.strip() for doc in search_results]
+
 
 def build_sample_excerpt(samples: list[str], max_chars_per_sample: int = 700) -> str:
     trimmed = []
@@ -393,8 +391,11 @@ def summarize_samples(samples: list[str], selected_model: str) -> str:
     active_llm = choose_refine_llm(selected_model)
     joined = build_sample_excerpt(samples)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 너는 문자열 형태의 유사 자소서 샘플들에서 패턴을 추출하는 도우미다.
 반드시 한국어로만 작성하라.
 
@@ -423,13 +424,18 @@ def summarize_samples(samples: list[str], selected_model: str) -> str:
 피해야 할 점:
 - ...
 - ...
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 다음은 유사 지원자 자소서 문자열 샘플이다.
 
 {joined}
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
 
@@ -459,8 +465,11 @@ def summarize_samples(samples: list[str], selected_model: str) -> str:
 def extract_sample_style_rules(sample_summary: str, selected_model: str) -> str:
     active_llm = choose_refine_llm(selected_model)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 너는 샘플 요약을 생성 프롬프트에서 바로 쓸 수 있는 규칙으로 바꾸는 도우미다.
 반드시 한국어로만 작성하라.
 
@@ -470,13 +479,18 @@ def extract_sample_style_rules(sample_summary: str, selected_model: str) -> str:
 - ...
 - ...
 - ...
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 다음 샘플 요약을 바탕으로 실제 자소서 생성 시 지켜야 할 작성 규칙 4개를 정리해줘.
 
 {sample_summary}
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
 
@@ -569,7 +583,9 @@ def get_local_system_prompt(question_type: str) -> str:
 """
 
     if question_type == "motivation":
-        return common + """
+        return (
+            common
+            + """
 이 문항은 지원동기 문항이다.
 
 반드시 아래 흐름을 우선하라:
@@ -582,29 +598,45 @@ def get_local_system_prompt(question_type: str) -> str:
 - 사용자의 강점이 단순 분석이 아니라 데이터 구조화, 기준 정리, 활용 가능한 형태로 연결하는 관점으로 보이게 하라.
 - 마지막 문단은 과장된 포부 대신 현실적인 기여 방식으로 끝내라.
 """
+        )
     if question_type == "future_goal":
-        return common + """
+        return (
+            common
+            + """
 이 문항은 입사 후 포부 문항이다.
 현재 경험을 바탕으로 입사 후 배우고 기여할 방향을 구체적으로 써라.
 """
+        )
     if question_type == "collaboration":
-        return common + """
+        return (
+            common
+            + """
 이 문항은 협업 문항이다.
 역할 분담보다 기준 정렬, 전달 조율, 연결을 중심으로 써라.
 """
+        )
     if question_type == "problem_solving":
-        return common + """
+        return (
+            common
+            + """
 이 문항은 문제 해결 문항이다.
 문제 인식 → 원인 파악 → 기준 정리 → 해결 방식 → 결과 흐름으로 써라.
 """
+        )
     if question_type == "growth":
-        return common + """
+        return (
+            common
+            + """
 이 문항은 성장/노력 문항이다.
 무엇을 배우려 했고, 어떤 기준을 새로 세웠는지가 드러나게 써라.
 """
-    return common + """
+        )
+    return (
+        common
+        + """
 문항 의도에 맞는 흐름을 먼저 세우고 가장 관련 있는 경험 중심으로 써라.
 """
+    )
 
 
 def get_refine_system_prompt(question_type: str) -> str:
@@ -624,27 +656,37 @@ def get_refine_system_prompt(question_type: str) -> str:
 """
 
     if question_type == "motivation":
-        return common + """
+        return (
+            common
+            + """
 지원동기 문항에서는 아래를 우선 점검하라:
 - 첫 문장이 회사 지원 이유로 바로 시작하는가
 - 실제 지원 회사/직무와 사용자 경험이 자연스럽게 이어지는가
 - 사용자의 강점이 '분석 결과 제시'보다 '구조와 기준 정리' 쪽으로 드러나는가
 - 마지막이 추상적 다짐이 아니라 실제 기여 방향으로 끝나는가
 """
+        )
     return common
 
 
 # -----------------------------
 # 생성 단계
 # -----------------------------
-def build_local_draft(user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini") -> str:
+def build_local_draft(
+    user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini"
+) -> str:
     profile = parse_user_profile(user_profile)
     parsed = parse_user_request(user_message, selected_model)
-    sample_context = get_sample_context(selected_model, profile) #profile 정보 기반 sample 검색
+    sample_context = get_sample_context(
+        selected_model, profile
+    )  # profile 정보 기반 sample 검색
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", get_local_system_prompt(parsed["question_type"])),
-        ("human", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", get_local_system_prompt(parsed["question_type"])),
+            (
+                "human",
+                """
 [지원자 정보]
 - 성별: {gender}
 - 학교: {school}
@@ -678,39 +720,51 @@ def build_local_draft(user_message: str, user_profile: tuple, selected_model: st
 - 샘플 문장을 베끼지 말고, 사용자 이력으로 새롭게 써라.
 - 사용자를 단순히 분석 툴을 쓴 사람처럼 쓰지 말고, 데이터를 구조화하고 기준을 정리해 활용 가능한 형태로 연결한 사람처럼 보이게 하라.
 - 자기소개서 본문 초안만 써라.
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | local_llm | StrOutputParser()
-    result = chain.invoke({
-        "gender": profile["gender"],
-        "school": profile["school"],
-        "major": profile["major"],
-        "exp": profile["exp"],
-        "awards": profile["awards"],
-        "tech": profile["tech"],
-        "user_message": parsed["raw"],
-        "company": parsed["company"] or "미기재",
-        "job": parsed["job"] or "미기재",
-        "question": parsed["question"] or "미기재",
-        "question_type": parsed["question_type"],
-        "char_limit": parsed["char_limit"] or "미기재",
-        "sample_summary": sample_context["sample_summary"],
-        "style_rules": sample_context["style_rules"],
-        "sample_excerpt": sample_context["sample_excerpt"] or "없음",
-    })
+    result = chain.invoke(
+        {
+            "gender": profile["gender"],
+            "school": profile["school"],
+            "major": profile["major"],
+            "exp": profile["exp"],
+            "awards": profile["awards"],
+            "tech": profile["tech"],
+            "user_message": parsed["raw"],
+            "company": parsed["company"] or "미기재",
+            "job": parsed["job"] or "미기재",
+            "question": parsed["question"] or "미기재",
+            "question_type": parsed["question_type"],
+            "char_limit": parsed["char_limit"] or "미기재",
+            "sample_summary": sample_context["sample_summary"],
+            "style_rules": sample_context["style_rules"],
+            "sample_excerpt": sample_context["sample_excerpt"] or "없음",
+        }
+    )
 
     return clean_text(remove_forbidden_headers(result))
 
+
 # 4/21 runpod serverless 대응 수정
-def build_draft_with_ollama(user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini") -> str:
+def build_draft_with_ollama(
+    user_message: str, user_profile: tuple, selected_model: str = "GPT-4o-mini"
+) -> str:
     profile = parse_user_profile(user_profile)
     parsed = parse_user_request(user_message, selected_model)
-    sample_context = get_sample_context(selected_model, profile) #profile 정보 기반 sample 검색
+    sample_context = get_sample_context(
+        selected_model, profile
+    )  # profile 정보 기반 sample 검색
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", get_local_system_prompt(parsed["question_type"])),
-        ("human", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", get_local_system_prompt(parsed["question_type"])),
+            (
+                "human",
+                """
 [지원자 정보]
 - 성별: {gender}
 - 학교: {school}
@@ -744,30 +798,36 @@ def build_draft_with_ollama(user_message: str, user_profile: tuple, selected_mod
 - 샘플 문장을 베끼지 말고, 사용자 이력으로 새롭게 써라.
 - 사용자를 단순히 분석 툴을 쓴 사람처럼 쓰지 말고, 데이터를 구조화하고 기준을 정리해 활용 가능한 형태로 연결한 사람처럼 보이게 하라.
 - 자기소개서 본문 초안만 써라.
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
-    final_prompt = prompt.invoke({
-        "gender": profile["gender"],
-        "school": profile["school"],
-        "major": profile["major"],
-        "exp": profile["exp"],
-        "awards": profile["awards"],
-        "tech": profile["tech"],
-        "user_message": parsed["raw"],
-        "company": parsed["company"] or "미기재",
-        "job": parsed["job"] or "미기재",
-        "question": parsed["question"] or "미기재",
-        "question_type": parsed["question_type"],
-        "char_limit": parsed["char_limit"] or "미기재",
-        "sample_summary": sample_context["sample_summary"],
-        "style_rules": sample_context["style_rules"],
-        "sample_excerpt": sample_context["sample_excerpt"] or "없음",
-    })
-    
-    
-    result = call_runpod_ollama(final_prompt.to_messages()) #runpod 호출로 생성된 답변 받아옴
+    final_prompt = prompt.invoke(
+        {
+            "gender": profile["gender"],
+            "school": profile["school"],
+            "major": profile["major"],
+            "exp": profile["exp"],
+            "awards": profile["awards"],
+            "tech": profile["tech"],
+            "user_message": parsed["raw"],
+            "company": parsed["company"] or "미기재",
+            "job": parsed["job"] or "미기재",
+            "question": parsed["question"] or "미기재",
+            "question_type": parsed["question_type"],
+            "char_limit": parsed["char_limit"] or "미기재",
+            "sample_summary": sample_context["sample_summary"],
+            "style_rules": sample_context["style_rules"],
+            "sample_excerpt": sample_context["sample_excerpt"] or "없음",
+        }
+    )
+
+    result = call_runpod_ollama(
+        final_prompt.to_messages()
+    )  # runpod 호출로 생성된 답변 받아옴
     return clean_text(remove_forbidden_headers(result))
+
 
 def regenerate_local_draft_if_needed(
     user_message: str,
@@ -780,7 +840,9 @@ def regenerate_local_draft_if_needed(
     working_message = user_message
 
     for attempt in range(max_attempts):
-        draft = build_local_draft(working_message, user_profile, selected_model) #build_draft_with_ollama(working_message, user_profile, selected_model)
+        draft = build_local_draft(
+            working_message, user_profile, selected_model
+        )  # build_draft_with_ollama(working_message, user_profile, selected_model)
         is_ok, reason = score_local_draft(draft, parsed)
         last_text = draft
 
@@ -789,23 +851,27 @@ def regenerate_local_draft_if_needed(
 
         if attempt < max_attempts - 1:
             working_message = (
-                user_message
-                + f"\n\n추가 지시: 이전 초안은 '{reason}' 문제가 있었어. "
-                  "실제 지원 회사명과 직무가 더 선명하게 드러나게 하고, "
-                  "사용자의 강점이 단순 분석이 아니라 데이터 구조화와 기준 정리 쪽으로 보이게 다시 써줘. "
-                  "샘플은 참고만 하고 문장은 새롭게 써줘."
+                user_message + f"\n\n추가 지시: 이전 초안은 '{reason}' 문제가 있었어. "
+                "실제 지원 회사명과 직무가 더 선명하게 드러나게 하고, "
+                "사용자의 강점이 단순 분석이 아니라 데이터 구조화와 기준 정리 쪽으로 보이게 다시 써줘. "
+                "샘플은 참고만 하고 문장은 새롭게 써줘."
             )
 
     return last_text
 
 
-def refine_with_api(local_draft_body: str, user_message: str, selected_model: str) -> str:
+def refine_with_api(
+    local_draft_body: str, user_message: str, selected_model: str
+) -> str:
     parsed = parse_user_request(user_message, selected_model)
     active_llm = choose_refine_llm(selected_model)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", get_refine_system_prompt(parsed["question_type"])),
-        ("human", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", get_refine_system_prompt(parsed["question_type"])),
+            (
+                "human",
+                """
 [사용자 요청]
 {user_message}
 
@@ -825,28 +891,37 @@ def refine_with_api(local_draft_body: str, user_message: str, selected_model: st
 - 사용자의 강점이 구조와 기준 정리, 실무 연결 관점으로 보이게 하라.
 - 문장을 지나치게 축약해 힘이 빠지지 않게 하라.
 - 과장 표현은 줄이고, 현실적인 기여 방식으로 정리하라.
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
-    result = chain.invoke({
-        "user_message": parsed["raw"],
-        "company": parsed["company"] or "미기재",
-        "job": parsed["job"] or "미기재",
-        "question": parsed["question"] or "미기재",
-        "question_type": parsed["question_type"],
-        "char_limit": parsed["char_limit"] or "미기재",
-        "local_draft_body": local_draft_body,
-    })
+    result = chain.invoke(
+        {
+            "user_message": parsed["raw"],
+            "company": parsed["company"] or "미기재",
+            "job": parsed["job"] or "미기재",
+            "question": parsed["question"] or "미기재",
+            "question_type": parsed["question_type"],
+            "char_limit": parsed["char_limit"] or "미기재",
+            "local_draft_body": local_draft_body,
+        }
+    )
 
     return clean_text(remove_forbidden_headers(result))
 
 
-def revise_existing_draft(existing_draft: str, revision_request: str, selected_model: str = "GPT-4o-mini") -> str:
+def revise_existing_draft(
+    existing_draft: str, revision_request: str, selected_model: str = "GPT-4o-mini"
+) -> str:
     active_llm = choose_refine_llm(selected_model)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 당신은 한국어 자기소개서 수정 전문가다.
 반드시 한국어로만 작성하라.
 
@@ -858,8 +933,11 @@ def revise_existing_draft(existing_draft: str, revision_request: str, selected_m
 - 수정된 결과는 자연스럽게 이어지는 완성된 자기소개서 본문이어야 한다.
 - 수정 후에도 지나치게 짧아지지 않게 하고, 전체 흐름을 유지하라.
 - 과장 표현은 줄이고, 사용자의 강점이 구조와 기준 정리 쪽으로 드러나게 하라.
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 [기존 결과]
 {existing_draft}
 
@@ -869,14 +947,18 @@ def revise_existing_draft(existing_draft: str, revision_request: str, selected_m
 요구사항:
 - 수정 요청을 반영한 전체 본문을 다시 써라.
 - 단, 불필요하게 전체를 새로 갈아엎지 말고 요청한 방향 중심으로 수정하라.
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
-    result = chain.invoke({
-        "existing_draft": existing_draft,
-        "revision_request": revision_request,
-    })
+    result = chain.invoke(
+        {
+            "existing_draft": existing_draft,
+            "revision_request": revision_request,
+        }
+    )
 
     return clean_text(remove_forbidden_headers(result))
 
@@ -903,8 +985,11 @@ def fit_length_if_needed(text: str, user_message: str, selected_model: str) -> s
         else "조금 더 내용을 보강해 주세요. 단, 없는 경험은 추가하지 마세요."
     )
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 당신은 한국어 자기소개서 문장 길이 조정 전문가다.
 
 규칙:
@@ -916,8 +1001,11 @@ def fit_length_if_needed(text: str, user_message: str, selected_model: str) -> s
 - 목표 글자 수에 최대한 맞출 것
 - 문장을 줄이더라도 글의 핵심 설득력은 남길 것
 - 과장 표현은 줄일 것
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 [사용자 요청]
 {user_message}
 
@@ -928,17 +1016,21 @@ def fit_length_if_needed(text: str, user_message: str, selected_model: str) -> s
 - 목표 글자 수: {target}자
 - 현재 글자 수: {current}자
 - 요청: {direction}
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
-    adjusted = chain.invoke({
-        "user_message": parsed["raw"],
-        "text": text,
-        "target": target,
-        "current": current,
-        "direction": direction,
-    })
+    adjusted = chain.invoke(
+        {
+            "user_message": parsed["raw"],
+            "text": text,
+            "target": target,
+            "current": current,
+            "direction": direction,
+        }
+    )
 
     return clean_text(remove_forbidden_headers(adjusted))
 
@@ -955,8 +1047,11 @@ def evaluate_draft_with_api(
     parsed = parse_user_request(user_message, selected_model)
     active_llm = choose_refine_llm(selected_model)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
 당신은 한국어 자기소개서 평가 전문가다.
 반드시 한국어로만 작성하라.
 
@@ -977,8 +1072,11 @@ def evaluate_draft_with_api(
 - 보완 포인트는 실제 수정에 바로 쓸 수 있게 구체적이고 짧게 작성
 - 'AI 표절률', '유사도', '탐지율' 같은 표현은 절대 쓰지 말 것
 - 실제 회사 정보는 사용자 입력 범위를 넘어서 추측하지 말 것
-        """),
-        ("human", """
+        """,
+            ),
+            (
+                "human",
+                """
 [사용자 요청]
 {user_message}
 
@@ -999,18 +1097,22 @@ def evaluate_draft_with_api(
 - 마지막 문단 완성도
 - 과장 표현 여부
 - 수정본이면 요청 방향 반영 여부
-        """)
-    ])
+        """,
+            ),
+        ]
+    )
 
     chain = prompt | active_llm | StrOutputParser()
-    result = chain.invoke({
-        "user_message": parsed["raw"],
-        "company": parsed["company"] or "미기재",
-        "job": parsed["job"] or "미기재",
-        "question": parsed["question"] or "미기재",
-        "question_type": parsed["question_type"],
-        "body": body,
-    })
+    result = chain.invoke(
+        {
+            "user_message": parsed["raw"],
+            "company": parsed["company"] or "미기재",
+            "job": parsed["job"] or "미기재",
+            "question": parsed["question"] or "미기재",
+            "question_type": parsed["question_type"],
+            "body": body,
+        }
+    )
 
     return clean_text(result)
 
@@ -1054,7 +1156,9 @@ def build_final_response(
             is_revision=is_revision,
         )
     except Exception:
-        evaluation_text = fallback_evaluation_comment(body=body, is_revision=is_revision)
+        evaluation_text = fallback_evaluation_comment(
+            body=body, is_revision=is_revision
+        )
 
     lines = [f"[{result_label}]", ""]
 
