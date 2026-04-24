@@ -618,9 +618,12 @@ JobPocket/
 </table>
 
 ---
+---
 
-<div align="center">
+## 📜 License
 
-**조라에몽 팀** · SK Networks 26th 3차 프로젝트 · 2026
-
-</div>
+본 프로젝트는 **MIT License**를 따릅니다.<br/> 
+모든 소스 코드 및 관련 문서의 사용 및 배포 규정은 [LICENSE](./LICENSE) 파일에서 확인하실 수 있습니다.
+<div align= "center">
+Copyright (c) 2026 SK Networks 26th 팀 조라에몽 (Team Joraemon)</div>
+---
