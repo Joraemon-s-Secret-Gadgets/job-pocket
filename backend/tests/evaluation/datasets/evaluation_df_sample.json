@@ -1,0 +1,52 @@
+ [
+    {
+        "position_type":"frontend engineer",
+        "resume_cleaned":"[최종학력] XX대학교 소프트웨어학과 (졸업, 2023)\n[경력 및 경험]  \n- **대학교 팀 프로젝트**  \n  - **프로젝트명**: 온라인 쇼핑몰 웹 애플리케이션  \n  - **기간**: 2023년 3월 - 2023년 6월  \n  - **내용**: React와 TypeScript를 활용하여 프론트엔드를 개발하였으며, Emotion을 통해 컴포넌트 스타일링을 진행했습니다. 리액트에 대한 이해를 깊이 있게 쌓을 수 있었고, Git을 사용하여 팀과 협업했습니다.  \n- **인턴십**  \n  - **회사명**: OO테크 주식회사  \n  - **기간**: 2023년 7월 - 2023년 8월  \n  - **내용**: 프론트엔드 개발자로서 팀의 프로젝트에서 D3.js를 이용한 데이터 시각화 모듈을 개발하였고, 백엔드 API와 연동하여 클라이언트-서버 통신을 구현했습니다. Agile 개발 방법론에 따라 일정을 관리하며 팀 내 회의에도 적극 참여했습니다.\n[기술 및 역량]  \n- React: 기본 활용 경험 및 컴포넌트 개발 능력  \n- TypeScript: 기본 타입 정의 및 활용 경험  \n- Emotion: CSS-in-JS 방식 스타일링 경험  \n- D3.js: 데이터 시각화 프로젝트 경험  \n- Git: 코드 협업 및 버전 관리 능력  \n- Recoil: 상태 관리 기본 이해  \n- Agile: 소프트웨어 개발 생애 주기(SDLC) 이해  \n[기타]  \n- **프로젝트 포트폴리오**: GitHub에 프로젝트 코드를 업로드하여 확인 가능합니다.  \n- **수상 경력**: XX대학교 해커톤 대회 수상 (2023)  \n- **교육 이수**: \"React와 TypeScript로 시작하는 모던 웹 개발\" 온라인 과정 이수 (2023)",
+        "found_tech_list":[
+            "git",
+            "github",
+            "js",
+            "agile",
+            "recoil",
+            "api",
+            "react",
+            "typescript",
+            "css"
+        ],
+        "found_tech_count":9
+    },
+    {
+        "position_type":"backend engineer",
+        "resume_cleaned":"[최종학력] XX대학교 컴퓨터공학과 (졸업)\n[경력 및 경험]  \n- 개인 프로젝트: *쇼핑몰 웹 애플리케이션 개발*  \n  - 기간: 2023년 3월 - 2023년 6월  \n  - 내용: Java 및 Spring Boot를 활용하여 사용자 등록, 상품 검색, 장바구니 기능 구현. RESTful API 설계 및 데이터베이스 연동.\n- 학과 프로젝트: *도서관 관리 시스템*  \n  - 기간: 2022년 9월 - 2022년 12월  \n  - 내용: Oracle DB를 이용한 데이터베이스 설계. SQL 쿼리 작성 및 데이터를 CRUD 할 수 있는 기능 구축.\n[기술 및 역량]  \n- Java: 기본적인 문법 이해 및 활용 경험  \n- Spring Boot: 간단한 애플리케이션 개발 경험  \n- Oracle DB: 기본적인 RDBMS 개념 이해 및 SQL 작성 가능  \n- Git: 기본적인 사용 경험 (버전 관리 및 팀 협업)\n[기타]  \n- 자격증: 정보처리기사 (응시 예정)  \n- 대외활동: 프로그래밍 동아리 활동 (2021 - 2023)  \n- 수상 이력: XX대학교 프로그래밍 경진대회 참가 및 입상 (2022)  \n- 교육 이수: Java, Spring Boot 및 CI\/CD 관련 온라인 과정 수료",
+        "found_tech_list":[
+            "oracle",
+            "restful",
+            "git",
+            "db",
+            "java",
+            "ci",
+            "rdbms",
+            "sql",
+            "api",
+            "crud",
+            "cd",
+            "spring"
+        ],
+        "found_tech_count":12
+    },
+    {
+        "position_type":"ai engineer",
+        "resume_cleaned":"[최종학력] YY대학교 컴퓨터공학과 (졸업)\n[경력 및 경험]  \n- ABC 금융테크 (2020.03 - 2023.02)  \n  - 대규모 금융 데이터 분석을 위한 Python 기반의 시스템 개발에 참여\n  - 내부 챗봇 프로젝트에 LangChain을 일부 활용하여 기본적인 기능 구현 \n  - FastAPI를 이용한 RESTful API 서비스 개발 및 운영 경험\n  - PostgreSQL 데이터베이스를 사용한 기본적인 데이터 쿼리 작성 및 최적화 수행\n- DEF 데이터 솔루션 (2022.06 - 2023.01)  \n  - 데이터 파이프라인 구성 및 데이터 처리 업무에 지원\n  - NLP 모델 최적화 작업에 간섭하여 문서 분류 및 감정 분석 개선 업무 수행\n[기술 및 역량]  \n- Python (중급): 기본적인 프로그래밍 및 데이터 분석을 위한 활용 가능  \n- FastAPI (기초): REST API 설계 및 신속한 배포 경험  \n- PostgreSQL (기초): 데이터베이스 관리 및 간단한 쿼리 작성 가능  \n- LangChain (기초): 기본적인 사용 경험 보유  \n- NLP (기초): 자연어 처리 기초 이해 및 모델 학습 경험 \n[기타]  \n- AWS 기초 교육 이수 (2021)  \n- 데이터 시각화 툴 교육 이수 (2022)  \n- 정보처리기사 자격증 보유",
+        "found_tech_list":[
+            "restful",
+            "postgresql",
+            "nlp",
+            "python",
+            "langchain",
+            "fastapi",
+            "api",
+            "aws"
+        ],
+        "found_tech_count":8
+    }
+]

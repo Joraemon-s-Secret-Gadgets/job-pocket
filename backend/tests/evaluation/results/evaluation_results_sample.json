@@ -1,0 +1,1758 @@
+{
+    "summary": {
+        "by_position": {
+            "ai engineer": {
+                "rank_1_avg": 0.5,
+                "rank_2_avg": 0.5416,
+                "rank_3_avg": 0.375,
+                "total_avg": 0.4722
+            },
+            "backend engineer": {
+                "rank_1_avg": 0.6051,
+                "rank_2_avg": 0.6291,
+                "rank_3_avg": 0.5684,
+                "total_avg": 0.6009
+            },
+            "frontend engineer": {
+                "rank_1_avg": 0.7667,
+                "rank_2_avg": 0.8028,
+                "rank_3_avg": 0.716,
+                "total_avg": 0.7618
+            }
+        },
+        "overall": {
+            "rank_1_avg": 0.6916,
+            "rank_2_avg": 0.7246,
+            "rank_3_avg": 0.6376,
+            "total_avg": 0.6846
+        },
+        "evaluated_at": "2026-04-24 13:50:09",
+        "sample_size": 20
+    },
+    "details": [
+        {
+            "query_id": 1,
+            "position": "ai engineer",
+            "query_techs": [
+                "ai",
+                "git",
+                "hackathon",
+                "ml",
+                "python",
+                "pytorch"
+            ],
+            "results": [
+                {
+                    "db_id": 2801,
+                    "match_ratio": 0.3333,
+                    "matched_count": 2,
+                    "matched_list": [
+                        "ai",
+                        "python"
+                    ],
+                    "missing_list": [
+                        "git",
+                        "hackathon",
+                        "ml",
+                        "pytorch"
+                    ]
+                },
+                {
+                    "db_id": 18139,
+                    "match_ratio": 0.5,
+                    "matched_count": 3,
+                    "matched_list": [
+                        "ai",
+                        "git",
+                        "python"
+                    ],
+                    "missing_list": [
+                        "hackathon",
+                        "ml",
+                        "pytorch"
+                    ]
+                },
+                {
+                    "db_id": 18864,
+                    "match_ratio": 0.3333,
+                    "matched_count": 2,
+                    "matched_list": [
+                        "git",
+                        "python"
+                    ],
+                    "missing_list": [
+                        "ai",
+                        "hackathon",
+                        "ml",
+                        "pytorch"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 2,
+            "position": "backend engineer",
+            "query_techs": [
+                "api",
+                "cd",
+                "ci",
+                "crud",
+                "db",
+                "git",
+                "java",
+                "oracle",
+                "query",
+                "rdbms",
+                "restful",
+                "spring",
+                "sql"
+            ],
+            "results": [
+                {
+                    "db_id": 9708,
+                    "match_ratio": 0.6923,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "cd",
+                        "ci",
+                        "db",
+                        "git",
+                        "java",
+                        "oracle",
+                        "rdbms",
+                        "spring",
+                        "sql"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "crud",
+                        "query",
+                        "restful"
+                    ]
+                },
+                {
+                    "db_id": 12401,
+                    "match_ratio": 0.6923,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "api",
+                        "cd",
+                        "ci",
+                        "db",
+                        "java",
+                        "oracle",
+                        "restful",
+                        "spring",
+                        "sql"
+                    ],
+                    "missing_list": [
+                        "crud",
+                        "git",
+                        "query",
+                        "rdbms"
+                    ]
+                },
+                {
+                    "db_id": 10245,
+                    "match_ratio": 0.6154,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "api",
+                        "db",
+                        "git",
+                        "java",
+                        "oracle",
+                        "restful",
+                        "spring",
+                        "sql"
+                    ],
+                    "missing_list": [
+                        "cd",
+                        "ci",
+                        "crud",
+                        "query",
+                        "rdbms"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 3,
+            "position": "frontend engineer",
+            "query_techs": [
+                "confluence",
+                "css",
+                "cypress",
+                "git",
+                "github",
+                "html",
+                "javascript",
+                "jest",
+                "jira",
+                "next.js",
+                "react",
+                "storybook",
+                "testing",
+                "typescript",
+                "ui"
+            ],
+            "results": [
+                {
+                    "db_id": 15511,
+                    "match_ratio": 0.8,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "css",
+                        "cypress",
+                        "git",
+                        "html",
+                        "javascript",
+                        "jest",
+                        "jira",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "confluence",
+                        "github",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 16994,
+                    "match_ratio": 0.7333,
+                    "matched_count": 11,
+                    "matched_list": [
+                        "css",
+                        "cypress",
+                        "git",
+                        "html",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "confluence",
+                        "github",
+                        "jira",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 5733,
+                    "match_ratio": 0.6667,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "css",
+                        "cypress",
+                        "git",
+                        "html",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "confluence",
+                        "github",
+                        "jira",
+                        "testing",
+                        "typescript"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 4,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "cypress",
+                "git",
+                "jest",
+                "next.js",
+                "react",
+                "storybook",
+                "testing",
+                "ui"
+            ],
+            "results": [
+                {
+                    "db_id": 17400,
+                    "match_ratio": 0.8889,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "api",
+                        "cypress",
+                        "git",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 8750,
+                    "match_ratio": 0.7778,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "cypress",
+                        "git",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 10122,
+                    "match_ratio": 0.6667,
+                    "matched_count": 6,
+                    "matched_list": [
+                        "cypress",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "git",
+                        "testing"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 5,
+            "position": "backend engineer",
+            "query_techs": [
+                "api",
+                "aws",
+                "cd",
+                "ci",
+                "cloud",
+                "db",
+                "dynamodb",
+                "fastapi",
+                "github",
+                "lambda",
+                "nosql",
+                "practitioner",
+                "python",
+                "query",
+                "restful"
+            ],
+            "results": [
+                {
+                    "db_id": 12117,
+                    "match_ratio": 0.6667,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "api",
+                        "aws",
+                        "cloud",
+                        "dynamodb",
+                        "fastapi",
+                        "github",
+                        "lambda",
+                        "practitioner",
+                        "python",
+                        "restful"
+                    ],
+                    "missing_list": [
+                        "cd",
+                        "ci",
+                        "db",
+                        "nosql",
+                        "query"
+                    ]
+                },
+                {
+                    "db_id": 12364,
+                    "match_ratio": 0.6667,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "api",
+                        "aws",
+                        "cloud",
+                        "dynamodb",
+                        "fastapi",
+                        "lambda",
+                        "nosql",
+                        "practitioner",
+                        "python",
+                        "restful"
+                    ],
+                    "missing_list": [
+                        "cd",
+                        "ci",
+                        "db",
+                        "github",
+                        "query"
+                    ]
+                },
+                {
+                    "db_id": 15401,
+                    "match_ratio": 0.6,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "api",
+                        "aws",
+                        "dynamodb",
+                        "fastapi",
+                        "github",
+                        "lambda",
+                        "nosql",
+                        "python",
+                        "restful"
+                    ],
+                    "missing_list": [
+                        "cd",
+                        "ci",
+                        "cloud",
+                        "db",
+                        "practitioner",
+                        "query"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 6,
+            "position": "frontend engineer",
+            "query_techs": [
+                "agile",
+                "cd",
+                "ci",
+                "css",
+                "ctron.js",
+                "ele",
+                "git",
+                "html",
+                "intern",
+                "javascript",
+                "node.js",
+                "react",
+                "sqlite",
+                "typescript",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 17191,
+                    "match_ratio": 0.5625,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "agile",
+                        "cd",
+                        "ci",
+                        "css",
+                        "html",
+                        "intern",
+                        "javascript"
+                    ]
+                },
+                {
+                    "db_id": 10121,
+                    "match_ratio": 0.5625,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "agile",
+                        "cd",
+                        "ci",
+                        "css",
+                        "html",
+                        "intern",
+                        "javascript"
+                    ]
+                },
+                {
+                    "db_id": 10806,
+                    "match_ratio": 0.5,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "ctron.js",
+                        "ele",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "agile",
+                        "cd",
+                        "ci",
+                        "css",
+                        "git",
+                        "html",
+                        "intern",
+                        "javascript"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 7,
+            "position": "ai engineer",
+            "query_techs": [
+                "ai",
+                "api",
+                "aws",
+                "chatbot",
+                "fastapi",
+                "flask",
+                "gpt",
+                "llm",
+                "multimodal",
+                "python",
+                "text",
+                "whisper"
+            ],
+            "results": [
+                {
+                    "db_id": 1604,
+                    "match_ratio": 0.6667,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "ai",
+                        "api",
+                        "aws",
+                        "gpt",
+                        "llm",
+                        "multimodal",
+                        "python",
+                        "whisper"
+                    ],
+                    "missing_list": [
+                        "chatbot",
+                        "fastapi",
+                        "flask",
+                        "text"
+                    ]
+                },
+                {
+                    "db_id": 1739,
+                    "match_ratio": 0.5833,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "ai",
+                        "api",
+                        "aws",
+                        "gpt",
+                        "llm",
+                        "python",
+                        "whisper"
+                    ],
+                    "missing_list": [
+                        "chatbot",
+                        "fastapi",
+                        "flask",
+                        "multimodal",
+                        "text"
+                    ]
+                },
+                {
+                    "db_id": 12712,
+                    "match_ratio": 0.4167,
+                    "matched_count": 5,
+                    "matched_list": [
+                        "ai",
+                        "api",
+                        "gpt",
+                        "python",
+                        "whisper"
+                    ],
+                    "missing_list": [
+                        "aws",
+                        "chatbot",
+                        "fastapi",
+                        "flask",
+                        "llm",
+                        "multimodal",
+                        "text"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 8,
+            "position": "frontend engineer",
+            "query_techs": [
+                "css",
+                "git",
+                "html",
+                "javascript",
+                "jest",
+                "next.js",
+                "react",
+                "storybook",
+                "testing",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 7437,
+                    "match_ratio": 0.7273,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "jest",
+                        "testing",
+                        "ux"
+                    ]
+                },
+                {
+                    "db_id": 6051,
+                    "match_ratio": 0.8182,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "css",
+                        "html",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "git",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 14950,
+                    "match_ratio": 0.8182,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "testing",
+                        "ux"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 9,
+            "position": "backend engineer",
+            "query_techs": [
+                "actix",
+                "aws",
+                "cloud",
+                "db",
+                "framework",
+                "messaging",
+                "nats",
+                "postgresql",
+                "query",
+                "redis",
+                "rust",
+                "server"
+            ],
+            "results": [
+                {
+                    "db_id": 1147,
+                    "match_ratio": 0.5,
+                    "matched_count": 6,
+                    "matched_list": [
+                        "actix",
+                        "aws",
+                        "nats",
+                        "postgresql",
+                        "redis",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "framework",
+                        "messaging",
+                        "query",
+                        "server"
+                    ]
+                },
+                {
+                    "db_id": 2198,
+                    "match_ratio": 0.5,
+                    "matched_count": 6,
+                    "matched_list": [
+                        "actix",
+                        "aws",
+                        "nats",
+                        "postgresql",
+                        "redis",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "framework",
+                        "messaging",
+                        "query",
+                        "server"
+                    ]
+                },
+                {
+                    "db_id": 2082,
+                    "match_ratio": 0.5,
+                    "matched_count": 6,
+                    "matched_list": [
+                        "actix",
+                        "aws",
+                        "nats",
+                        "postgresql",
+                        "redis",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "framework",
+                        "messaging",
+                        "query",
+                        "server"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 10,
+            "position": "backend engineer",
+            "query_techs": [
+                "api",
+                "db",
+                "framework",
+                "git",
+                "hackathon",
+                "java",
+                "kafka",
+                "oracle",
+                "restful",
+                "spring"
+            ],
+            "results": [
+                {
+                    "db_id": 6250,
+                    "match_ratio": 0.7,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "api",
+                        "db",
+                        "git",
+                        "java",
+                        "oracle",
+                        "restful",
+                        "spring"
+                    ],
+                    "missing_list": [
+                        "framework",
+                        "hackathon",
+                        "kafka"
+                    ]
+                },
+                {
+                    "db_id": 14764,
+                    "match_ratio": 0.7,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "api",
+                        "git",
+                        "java",
+                        "kafka",
+                        "oracle",
+                        "restful",
+                        "spring"
+                    ],
+                    "missing_list": [
+                        "db",
+                        "framework",
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 445,
+                    "match_ratio": 0.7,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "api",
+                        "db",
+                        "git",
+                        "java",
+                        "oracle",
+                        "restful",
+                        "spring"
+                    ],
+                    "missing_list": [
+                        "framework",
+                        "hackathon",
+                        "kafka"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 11,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "components",
+                "css",
+                "expo",
+                "git",
+                "hackathon",
+                "html",
+                "javascript",
+                "mobile",
+                "native",
+                "react",
+                "redux",
+                "rest",
+                "toolkit",
+                "ui"
+            ],
+            "results": [
+                {
+                    "db_id": 3230,
+                    "match_ratio": 0.6,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "components",
+                        "expo",
+                        "git",
+                        "javascript",
+                        "native",
+                        "react",
+                        "redux",
+                        "toolkit",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "css",
+                        "hackathon",
+                        "html",
+                        "mobile",
+                        "rest"
+                    ]
+                },
+                {
+                    "db_id": 5666,
+                    "match_ratio": 0.7333,
+                    "matched_count": 11,
+                    "matched_list": [
+                        "components",
+                        "css",
+                        "expo",
+                        "git",
+                        "html",
+                        "javascript",
+                        "native",
+                        "react",
+                        "redux",
+                        "toolkit",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "hackathon",
+                        "mobile",
+                        "rest"
+                    ]
+                },
+                {
+                    "db_id": 6641,
+                    "match_ratio": 0.6,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "components",
+                        "css",
+                        "expo",
+                        "git",
+                        "javascript",
+                        "native",
+                        "react",
+                        "redux",
+                        "toolkit"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "hackathon",
+                        "html",
+                        "mobile",
+                        "rest",
+                        "ui"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 12,
+            "position": "frontend engineer",
+            "query_techs": [
+                "css",
+                "ctron.js",
+                "ele",
+                "git",
+                "hackathon",
+                "html",
+                "javascript",
+                "node.js",
+                "react",
+                "sqlite",
+                "typescript",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 625,
+                    "match_ratio": 0.9231,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 18968,
+                    "match_ratio": 0.9231,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 275,
+                    "match_ratio": 0.9231,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "hackathon"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 13,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "css",
+                "git",
+                "github",
+                "hackathon",
+                "html",
+                "javascript",
+                "nuxt.js",
+                "pinia",
+                "ui",
+                "vue.js",
+                "vuetify"
+            ],
+            "results": [
+                {
+                    "db_id": 2868,
+                    "match_ratio": 0.9167,
+                    "matched_count": 11,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "git",
+                        "github",
+                        "html",
+                        "javascript",
+                        "nuxt.js",
+                        "pinia",
+                        "ui",
+                        "vue.js",
+                        "vuetify"
+                    ],
+                    "missing_list": [
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 10891,
+                    "match_ratio": 0.8333,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "nuxt.js",
+                        "pinia",
+                        "ui",
+                        "vue.js",
+                        "vuetify"
+                    ],
+                    "missing_list": [
+                        "github",
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 10926,
+                    "match_ratio": 0.75,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "nuxt.js",
+                        "pinia",
+                        "ui",
+                        "vuetify"
+                    ],
+                    "missing_list": [
+                        "github",
+                        "hackathon",
+                        "vue.js"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 14,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "cypress",
+                "hackathon",
+                "javascript",
+                "jest",
+                "next.js",
+                "react",
+                "redux",
+                "restful",
+                "storybook",
+                "testing",
+                "typescript",
+                "ui"
+            ],
+            "results": [
+                {
+                    "db_id": 17284,
+                    "match_ratio": 0.6923,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "api",
+                        "cypress",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "restful",
+                        "storybook",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "hackathon",
+                        "redux",
+                        "testing",
+                        "typescript"
+                    ]
+                },
+                {
+                    "db_id": 5105,
+                    "match_ratio": 0.7692,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "api",
+                        "cypress",
+                        "hackathon",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "storybook",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "redux",
+                        "restful",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 63,
+                    "match_ratio": 0.7692,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "api",
+                        "cypress",
+                        "javascript",
+                        "jest",
+                        "next.js",
+                        "react",
+                        "restful",
+                        "storybook",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "hackathon",
+                        "redux",
+                        "testing"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 15,
+            "position": "backend engineer",
+            "query_techs": [
+                "api",
+                "azure",
+                "cloud",
+                "db",
+                "git",
+                "hackathon",
+                "javascript",
+                "mysql",
+                "nestjs",
+                "node.js",
+                "oop",
+                "query",
+                "sql",
+                "typeorm",
+                "typescript"
+            ],
+            "results": [
+                {
+                    "db_id": 1396,
+                    "match_ratio": 0.5333,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "api",
+                        "azure",
+                        "git",
+                        "javascript",
+                        "mysql",
+                        "nestjs",
+                        "node.js",
+                        "typeorm"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "hackathon",
+                        "oop",
+                        "query",
+                        "sql",
+                        "typescript"
+                    ]
+                },
+                {
+                    "db_id": 3549,
+                    "match_ratio": 0.6,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "api",
+                        "azure",
+                        "git",
+                        "javascript",
+                        "mysql",
+                        "nestjs",
+                        "node.js",
+                        "sql",
+                        "typeorm"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "hackathon",
+                        "oop",
+                        "query",
+                        "typescript"
+                    ]
+                },
+                {
+                    "db_id": 12240,
+                    "match_ratio": 0.5333,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "api",
+                        "azure",
+                        "git",
+                        "mysql",
+                        "nestjs",
+                        "node.js",
+                        "oop",
+                        "typeorm"
+                    ],
+                    "missing_list": [
+                        "cloud",
+                        "db",
+                        "hackathon",
+                        "javascript",
+                        "query",
+                        "sql",
+                        "typescript"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 16,
+            "position": "frontend engineer",
+            "query_techs": [
+                "css",
+                "figma",
+                "git",
+                "html",
+                "javascript",
+                "next.js",
+                "react.js",
+                "tailwind",
+                "testing",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 6817,
+                    "match_ratio": 0.8182,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "css",
+                        "figma",
+                        "git",
+                        "html",
+                        "javascript",
+                        "next.js",
+                        "tailwind",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "react.js",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 14149,
+                    "match_ratio": 0.9091,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "css",
+                        "figma",
+                        "git",
+                        "html",
+                        "javascript",
+                        "next.js",
+                        "react.js",
+                        "tailwind",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 14086,
+                    "match_ratio": 0.9091,
+                    "matched_count": 10,
+                    "matched_list": [
+                        "css",
+                        "figma",
+                        "git",
+                        "html",
+                        "javascript",
+                        "next.js",
+                        "react.js",
+                        "tailwind",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "testing"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 17,
+            "position": "backend engineer",
+            "query_techs": [
+                "actix",
+                "api",
+                "db",
+                "docker",
+                "framework",
+                "git",
+                "messaging",
+                "nats",
+                "postgresql",
+                "python",
+                "redis",
+                "restful",
+                "rust"
+            ],
+            "results": [
+                {
+                    "db_id": 14491,
+                    "match_ratio": 0.5385,
+                    "matched_count": 7,
+                    "matched_list": [
+                        "actix",
+                        "api",
+                        "git",
+                        "postgresql",
+                        "redis",
+                        "restful",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "db",
+                        "docker",
+                        "framework",
+                        "messaging",
+                        "nats",
+                        "python"
+                    ]
+                },
+                {
+                    "db_id": 14313,
+                    "match_ratio": 0.6154,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "actix",
+                        "api",
+                        "git",
+                        "nats",
+                        "postgresql",
+                        "redis",
+                        "restful",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "db",
+                        "docker",
+                        "framework",
+                        "messaging",
+                        "python"
+                    ]
+                },
+                {
+                    "db_id": 13663,
+                    "match_ratio": 0.4615,
+                    "matched_count": 6,
+                    "matched_list": [
+                        "actix",
+                        "api",
+                        "git",
+                        "postgresql",
+                        "redis",
+                        "rust"
+                    ],
+                    "missing_list": [
+                        "db",
+                        "docker",
+                        "framework",
+                        "messaging",
+                        "nats",
+                        "python",
+                        "restful"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 18,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "aws",
+                "cd",
+                "ci",
+                "ctron.js",
+                "ele",
+                "github",
+                "graphql",
+                "javascript",
+                "jira",
+                "node.js",
+                "react",
+                "restful",
+                "sqlite",
+                "testing",
+                "typescript",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 13727,
+                    "match_ratio": 0.7222,
+                    "matched_count": 13,
+                    "matched_list": [
+                        "cd",
+                        "ci",
+                        "ctron.js",
+                        "ele",
+                        "github",
+                        "graphql",
+                        "jira",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "aws",
+                        "javascript",
+                        "restful",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 13264,
+                    "match_ratio": 0.7222,
+                    "matched_count": 13,
+                    "matched_list": [
+                        "api",
+                        "aws",
+                        "ctron.js",
+                        "ele",
+                        "github",
+                        "jira",
+                        "node.js",
+                        "react",
+                        "restful",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "cd",
+                        "ci",
+                        "graphql",
+                        "javascript",
+                        "testing"
+                    ]
+                },
+                {
+                    "db_id": 12759,
+                    "match_ratio": 0.4444,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "ctron.js",
+                        "ele",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "api",
+                        "aws",
+                        "cd",
+                        "ci",
+                        "github",
+                        "graphql",
+                        "javascript",
+                        "jira",
+                        "restful",
+                        "testing"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 19,
+            "position": "frontend engineer",
+            "query_techs": [
+                "api",
+                "aws",
+                "css",
+                "ctron.js",
+                "ele",
+                "git",
+                "html",
+                "javascript",
+                "node.js",
+                "react",
+                "sqlite",
+                "typescript",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 7099,
+                    "match_ratio": 0.8571,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "aws",
+                        "ux"
+                    ]
+                },
+                {
+                    "db_id": 5461,
+                    "match_ratio": 0.9286,
+                    "matched_count": 13,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "aws"
+                    ]
+                },
+                {
+                    "db_id": 9148,
+                    "match_ratio": 0.9286,
+                    "matched_count": 13,
+                    "matched_list": [
+                        "api",
+                        "css",
+                        "ctron.js",
+                        "ele",
+                        "git",
+                        "html",
+                        "javascript",
+                        "node.js",
+                        "react",
+                        "sqlite",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "aws"
+                    ]
+                }
+            ]
+        },
+        {
+            "query_id": 20,
+            "position": "frontend engineer",
+            "query_techs": [
+                "agile",
+                "components",
+                "css",
+                "git",
+                "hackathon",
+                "html",
+                "javascript",
+                "react",
+                "redux",
+                "scrum",
+                "typescript",
+                "ui",
+                "ux"
+            ],
+            "results": [
+                {
+                    "db_id": 14125,
+                    "match_ratio": 0.6923,
+                    "matched_count": 9,
+                    "matched_list": [
+                        "components",
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "react",
+                        "redux",
+                        "typescript",
+                        "ui"
+                    ],
+                    "missing_list": [
+                        "agile",
+                        "hackathon",
+                        "scrum",
+                        "ux"
+                    ]
+                },
+                {
+                    "db_id": 13450,
+                    "match_ratio": 0.9231,
+                    "matched_count": 12,
+                    "matched_list": [
+                        "agile",
+                        "components",
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "react",
+                        "redux",
+                        "scrum",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "hackathon"
+                    ]
+                },
+                {
+                    "db_id": 3002,
+                    "match_ratio": 0.6154,
+                    "matched_count": 8,
+                    "matched_list": [
+                        "css",
+                        "git",
+                        "html",
+                        "javascript",
+                        "react",
+                        "typescript",
+                        "ui",
+                        "ux"
+                    ],
+                    "missing_list": [
+                        "agile",
+                        "components",
+                        "hackathon",
+                        "redux",
+                        "scrum"
+                    ]
+                }
+            ]
+        }
+    ]
+}
