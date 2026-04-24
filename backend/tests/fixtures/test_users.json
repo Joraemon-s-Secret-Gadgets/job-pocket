@@ -1,0 +1,73 @@
+{
+  "test_users": [
+    {
+      "name": "기본유저",
+      "email": "test@example.com",
+      "password": "pass123",
+      "resume_data": {
+        "personal": {"eng_name": "Test User", "gender": "남성"},
+        "education": {"school": "테스트대학교", "major": "컴퓨터공학"},
+        "additional": {
+          "internship": "ABC 인턴 3개월 (데이터 파이프라인)",
+          "awards": "2024 교내 해커톤 대상",
+          "tech_stack": "Python, SQL, Docker"
+        }
+      }
+    },
+    {
+      "name": "유저A",
+      "email": "user_a@example.com",
+      "password": "password_a",
+      "resume_data": {
+        "personal": {"gender": "여성"},
+        "education": {"school": "A대학교", "major": "통계학"},
+        "additional": {
+          "internship": "DEF 인턴 (데이터 분석)",
+          "awards": "교내 공모전 장려상",
+          "tech_stack": "R, Python, Tableau"
+        }
+      }
+    },
+    {
+      "name": "유저B",
+      "email": "user_b@example.com",
+      "password": "password_b",
+      "resume_data": {
+        "personal": {"gender": "남성"},
+        "education": {"school": "B대학교", "major": "정보통신공학"},
+        "additional": {
+          "internship": "GHI 인턴 (백엔드 API 개발)",
+          "awards": "",
+          "tech_stack": "Java, Spring, MySQL"
+        }
+      }
+    }
+  ],
+  "sample_prompts": [
+    {
+      "prompt": "네이버에 백엔드 직무로 지원하는데 지원동기를 500자 내외로 써줘",
+      "expected_parse": {
+        "company": "네이버",
+        "job": "백엔드",
+        "char_limit": 500,
+        "question_type": "motivation"
+      }
+    },
+    {
+      "prompt": "카카오 AI 엔지니어 포지션에 지원합니다. 협업 경험을 300자로 써주세요",
+      "expected_parse": {
+        "company": "카카오",
+        "job": "AI 엔지니어",
+        "char_limit": 300,
+        "question_type": "collaboration"
+      }
+    },
+    {
+      "prompt": "입사 후 포부를 400자 내외로 작성해줘",
+      "expected_parse": {
+        "char_limit": 400,
+        "question_type": "future_goal"
+      }
+    }
+  ]
+}
