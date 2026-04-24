@@ -110,8 +110,12 @@ def clean_db(test_engine: Engine):
 def client():
     """
     FastAPI TestClient.
+
+    주의: 이 fixture는 D-001 결함(main.py 라우터 등록) 해결 후 정상 동작한다.
+    해결 전에는 /health/z만 접근 가능하고 나머지는 404 반환.
     """
-    import main
+    # import는 fixture 안에서 수행 (환경변수 먼저 설정되어야 함)
+    import main  # backend/main.py
 
     with TestClient(main.app) as tc:
         yield tc
