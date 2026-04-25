@@ -44,7 +44,7 @@ class RetrievalService:
             db_ids.append(db_id)
             score_map[db_id] = {
                 "selfintro_score": doc.metadata.get("selfintro_score", 0),
-                "relevance_score": float(score)
+                "relevance_score": float(score),
             }
 
         # 3. Repository를 통한 실제 본문 조회
@@ -56,17 +56,17 @@ class RetrievalService:
             if db_id in record_map:
                 record = record_map[db_id]
                 scores = score_map[db_id]
-                
+
                 doc = Document(
                     page_content=record["selfintro"],
                     metadata={
                         "id": db_id,
                         "selfintro_score": scores["selfintro_score"],
                         "relevance_score": scores["relevance_score"],
-                    }
+                    },
                 )
                 final_docs.append(doc)
-        
+
         return final_docs
 
     def search_as_schema(self, query: str) -> List[RetrievalResult]:
@@ -79,7 +79,7 @@ class RetrievalService:
                 id=doc.metadata["id"],
                 content=doc.page_content,
                 selfintro_score=doc.metadata["selfintro_score"],
-                relevance_score=doc.metadata["relevance_score"]
+                relevance_score=doc.metadata["relevance_score"],
             )
             for doc in docs
         ]
