@@ -23,12 +23,12 @@ from pymysql.cursors import DictCursor
 
 from common.db import rdb_engine
 from .base import table_name
-from schemas import ChatMessage
+from schemas import ChatMessageDict
 
 
 def save_chat_message(email: str, role: str, content: str) -> None:
     """
-    사용자 채팅 메시지를 저장합니다.
+    사용자의 채팅 메시지를 저장합니다.
 
     Args:
         email: 사용자 이메일
@@ -46,19 +46,22 @@ def save_chat_message(email: str, role: str, content: str) -> None:
             """
             c.execute(sql, (email, role, content))
             raw_conn.commit()
+    except Exception:
+        raw_conn.rollback()
+        raise
     finally:
         raw_conn.close()
 
 
-def load_chat_history(email: str) -> List[ChatMessage]:
+def load_chat_history(email: str) -> List[ChatMessageDict]:
     """
-    사용자 채팅 기록을 조회합니다.
+    사용자의 전체 채팅 기록을 조회합니다.
 
     Args:
         email: 사용자 이메일
 
     Returns:
-        채팅 메시지 리스트 (시간순 정렬)
+        시간순으로 정렬된 채팅 메시지 리스트
     """
     chat_table: str = table_name("chat_history")
 
@@ -72,7 +75,7 @@ def load_chat_history(email: str) -> List[ChatMessage]:
                 ORDER BY created_at ASC
             """
             c.execute(sql, (email,))
-            rows: List[ChatMessage] = c.fetchall()
+            rows: List[ChatMessageDict] = c.fetchall()
             return rows
     finally:
         raw_conn.close()
@@ -80,7 +83,7 @@ def load_chat_history(email: str) -> List[ChatMessage]:
 
 def delete_chat_history(email: str) -> None:
     """
-    사용자 채팅 기록을 삭제합니다.
+    사용자의 모든 채팅 기록을 삭제합니다.
 
     Args:
         email: 사용자 이메일
@@ -96,5 +99,8 @@ def delete_chat_history(email: str) -> None:
             """
             c.execute(sql, (email,))
             raw_conn.commit()
+    except Exception:
+        raw_conn.rollback()
+        raise
     finally:
         raw_conn.close()
