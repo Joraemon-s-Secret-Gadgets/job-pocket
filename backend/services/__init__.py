@@ -23,6 +23,17 @@ from .health_service import get_health_status, get_database_health
 
 # chat services
 from .chat_ollama import call_runpod_ollama
+from .chat_service import (
+    get_chat_history,
+    save_message,
+    clear_history,
+    parse_request,
+    generate_draft,
+    revise_draft,
+    refine_draft,
+    adjust_length,
+    finalize_response,
+)
 
 # auth services
 from .auth_service import login_user, signup_user
@@ -36,6 +47,15 @@ __all__ = [
     "get_database_health",
     # chat
     "call_runpod_ollama",
+    "get_chat_history",
+    "save_message",
+    "clear_history",
+    "parse_request",
+    "generate_draft",
+    "revise_draft",
+    "refine_draft",
+    "adjust_length",
+    "finalize_response",
     # auth
     "login_user",
     "signup_user",
