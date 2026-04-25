@@ -42,7 +42,15 @@ from .resume_schemas import (
 
 # chat schemas
 from .chat_schemas import (
+    QuestionType,
+    EvaluationLabel,
     ChatMessageDict,
+    ChatUserProfile,
+    ParsedUserRequest,
+    SampleAnalysis,
+    LLMParsedRequest,
+    LLMSampleSummary,
+    LLMEvaluationResult,
     ChatMessageRequest,
     StepParseRequest,
     StepDraftRequest,
@@ -78,7 +86,15 @@ __all__ = [
     "ResumeUpdateRequest",
     "ResumeErrorResponse",
     # chat
+    "QuestionType",
+    "EvaluationLabel",
     "ChatMessageDict",
+    "ChatUserProfile",
+    "ParsedUserRequest",
+    "SampleAnalysis",
+    "LLMParsedRequest",
+    "LLMSampleSummary",
+    "LLMEvaluationResult",
     "ChatMessageRequest",
     "StepParseRequest",
     "StepDraftRequest",

@@ -9,20 +9,15 @@ services package
 
 구성:
 - health_service: 서버 및 DB 상태 체크 로직
-- chat_ollama: RunPod 기반 LLM 호출 로직
+- chat_service: 채팅 및 RAG 프로세스 관리
 - auth_service: 인증(로그인/회원가입) 비즈니스 로직
-
-주의:
-- 이 패키지는 비즈니스 로직만 담당합니다.
-- DB 접근은 repository 계층에서 수행합니다.
-- 외부 API 호출은 services 내부에서 처리합니다.
+- resume_service: 이력서 정보 관리
 """
 
 # health services
 from .health_service import get_health_status, get_database_health
 
 # chat services
-from .chat_ollama import call_runpod_ollama
 from .chat_service import (
     get_chat_history,
     save_message,
@@ -46,7 +41,6 @@ __all__ = [
     "get_health_status",
     "get_database_health",
     # chat
-    "call_runpod_ollama",
     "get_chat_history",
     "save_message",
     "clear_history",
