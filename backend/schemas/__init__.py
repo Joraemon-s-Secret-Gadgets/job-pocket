@@ -42,7 +42,14 @@ from .resume_schemas import (
 
 # chat schemas
 from .chat_schemas import (
-    ChatMessage,
+    ChatMessageDict,
+    ChatMessageRequest,
+    StepParseRequest,
+    StepDraftRequest,
+    StepReviseRequest,
+    StepRefineRequest,
+    StepFitRequest,
+    StepFinalRequest,
 )
 
 
@@ -71,5 +78,12 @@ __all__ = [
     "ResumeUpdateRequest",
     "ResumeErrorResponse",
     # chat
-    "ChatMessage",
+    "ChatMessageDict",
+    "ChatMessageRequest",
+    "StepParseRequest",
+    "StepDraftRequest",
+    "StepReviseRequest",
+    "StepRefineRequest",
+    "StepFitRequest",
+    "StepFinalRequest",
 ]
