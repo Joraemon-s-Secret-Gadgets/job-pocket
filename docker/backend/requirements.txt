@@ -1,10 +1,9 @@
-# Python 3.12 / CPU only
 # ==========================
 # Backend
 # ==========================
-fastapi>=0.115.0
-uvicorn[standard]>=0.30.0
-pydantic==2.13.0
+fastapi~=0.115.0
+uvicorn[standard]~=0.30.0
+pydantic[email]==2.13.0
 
 # ==========================
 # DB
@@ -14,43 +13,57 @@ pymysql==1.1.2
 # ==========================
 # Vector Search (CPU)
 # ==========================
-faiss-cpu>=1.12.0
+faiss-cpu~=1.12.0
 
 # ==========================
 # Torch CPU only
-# sentence-transformers / langchain-huggingface
 # ==========================
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch>=2.0.0
+torch~=2.2.0
 
 # ==========================
-# LangChain
+# LangChain Ecosystem (~= 적용)
 # ==========================
-langchain>=1.2.2
-langchain-community>=0.4
-langchain-huggingface>=1.2.0
-langchain-openai==1.1.12
-langchain-groq==1.1.2
-langchain-ollama>=0.3.0
+langchain~=1.2.15
+langchain-classic~=1.0.4
+langchain-community~=0.4.1
+langchain-core~=1.3.0
+langchain-groq~=1.1.2
+langchain-huggingface~=1.2.2
+langchain-ollama~=1.1.0
+langchain-openai~=1.1.12
+langchain-text-splitters~=1.1.2
+langgraph~=1.1.9
+langgraph-checkpoint~=4.0.2
+langgraph-prebuilt~=1.0.10
+langgraph-sdk~=0.3.13
+langsmith~=0.7.33
 
 # ==========================
 # LLM Clients
 # ==========================
-openai==2.31.0
-groq==0.37.1
+openai~=2.31.0
+groq~=0.37.1
 
 # ==========================
 # Embeddings
 # ==========================
-sentence-transformers==5.4.1
+sentence-transformers~=5.4.1
 
 # ==========================
-# Runpod Flash
+# NLP / Retrieval
 # ==========================
-runpod-flash
+kiwipiepy~=0.23.1
+rank-bm25~=0.2.2
 
 # ==========================
-# Runpod Flash
+# Utils / Download
 # ==========================
-pytest>=8.0.0
-httpx>=0.28.0
+gdown~=6.0.0
+
+# ==========================
+# Test
+# ==========================
+pytest~=8.0.0
+httpx~=0.28.0
+
