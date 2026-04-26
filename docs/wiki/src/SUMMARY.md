@@ -1,6 +1,6 @@
 # Summary
 
-- [소개](./readme.md)
+- [소개](./README.md)
 
 # Architecture
 - [Overview](./architecture/overview.md)
