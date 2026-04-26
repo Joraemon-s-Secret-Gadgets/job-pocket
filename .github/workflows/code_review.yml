@@ -1,0 +1,55 @@
+name: Code Review on Tag
+
+permissions:
+    contents: read
+    issues: write
+
+on:
+    push:
+        tags:
+            - "v*.*.*"
+
+jobs:
+    code-review:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Get changed files
+              id: changed
+              run: |
+                  # 이전 태그와 현재 태그 사이의 변경 파일 추출
+                  PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
+                  CURR_TAG=${GITHUB_REF#refs/tags/}
+
+                  if [ -z "$PREV_TAG" ]; then
+                    # 첫 번째 태그면 전체 파일
+                    git diff --name-only HEAD~1 HEAD > changed_files.txt
+                  else
+                    git diff --name-only $PREV_TAG $CURR_TAG > changed_files.txt
+                  fi
+
+                  echo "DIFF<<EOF" >> $GITHUB_OUTPUT
+                  git diff ${PREV_TAG:-HEAD~1} ${CURR_TAG} -- '*.py' >> diff.txt || true
+                  echo "EOF" >> $GITHUB_OUTPUT
+
+            - name: Run Code Review
+              uses: actions/github-script@v7
+              env:
+                  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+              with:
+                  script: |
+                      const { execSync } = require('child_process');
+                      const fs = require('fs');
+
+                      const tag = context.ref.replace('refs/tags/', '');
+                      const prevTag = execSync('git tag --sort=-creatordate | sed -n "2p"').toString().trim();
+
+                      let diff = '';
+                      try {
+                        diff = execSync(`git diff ${prevTag || 'HEAD~1'} ${tag} -- '*.py'`).toString();
+                      } catch(e) {
+                        d
