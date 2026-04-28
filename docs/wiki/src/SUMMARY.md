@@ -32,6 +32,7 @@
 
 # Tests
 - [Retrieval Evaluation](./tests/retrieval_evaluation.md)
+- [Evaluation Report](./tests/evaluation_report.md)
 
 # Troubles
 - [Serverless](./troubles/runpod/serverless.md)
