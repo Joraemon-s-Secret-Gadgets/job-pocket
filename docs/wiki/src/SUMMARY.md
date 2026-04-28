@@ -35,7 +35,7 @@
 - [Evaluation Report](./tests/evaluation_report.md)
 
 # Troubles
-- [Troubleshooting](./troubles/README.md)
+- [Troubleshooting](./troubles/index.md)
     - [Serverless](./troubles/runpod/serverless.md)
     - [vLLM](./troubles/runpod/vllm.md)
     - [Chat Logic Optimization](./troubles/chat_logic_optimize.md)
