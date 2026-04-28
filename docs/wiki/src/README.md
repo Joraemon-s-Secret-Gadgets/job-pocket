@@ -18,7 +18,7 @@
 - [커밋 메시지 규칙](conventions/development.md#커밋-컨벤션)
 
 ### 트러블슈팅
-- [트러블슈팅 목록](troubles/README.md)
+- [트러블슈팅 목록](troubles/index.md)
 
 ---
 

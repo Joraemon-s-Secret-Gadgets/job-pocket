@@ -8,3 +8,4 @@ RUN microdnf install -y tzdata \
     && microdnf clean all
 
 COPY /my.cnf /etc/mysql/conf.d/custom.cnf
+COPY ./init/ /docker-entrypoint-initdb.d/
