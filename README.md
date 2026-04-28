@@ -570,7 +570,9 @@ docker compose down -v
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">최수아</td>
-            <td style="border: 1px solid #ddd; padding: 10px;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">
+              데이터베이스를 총괄하며 데이터 전처리부터 RAG, Retriever와 평가까지 모든 과정을 꼼꼼히 진행해주셨습니다. 데이터 필터링, 직무 매핑, 임베딩 생성, FAISS 인덱스 구축까지 데이터 파이프라인 전체를 설계 및 완성해주셨습니다. 이번 서비스의 데이터 품질을 책임져주셔서 최종 구현까지 잘 마무리 될 수 있었습니다.
+            </td>
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">홍완기</td>
@@ -614,7 +616,9 @@ docker compose down -v
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">최수아</td>
-            <td style="border: 1px solid #ddd; padding: 10px;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">
+              백엔드를 담당해 챗봇 구현을 위한 전반적인 프롬프트 설계를 맡아주셨습니다. 프론트엔드와의 연동 또한 맡아 챗봇이 실제로 동작하는 데 핵심적인 역할을 해주셨습니다. 특히 초안 개선 루프, 첨삭 분석, 인터뷰어 모드의 프롬프트를 설계하셔서 소프트스킬 감지, 역질문 생성 등 서비스의 지능적인 부분이 완성될 수 있었습니다.
+            </td>
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">홍완기</td>
@@ -655,7 +659,9 @@ docker compose down -v
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">최수아</td>
-            <td style="border: 1px solid #ddd; padding: 10px;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">
+              프론트엔드를 맡아 계획된 기능들이 화면에 원활히 구현될 수 있도록 해주셨습니다. 특히 프로젝트 진행 중 Chainlit에서 Streamlit으로 변경하게 되었음에도 빠르게 전환을 완료해주셨습니다. 또한 화면 상의 기능 수정 및 추가에 팀원들의 피드백을 수용하며 빠르게 구현을 완료해주셨습니다. 그 결과 안정적으로 프로젝트가 완성될 수 있었습니다.
+            </td>
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">홍완기</td>
@@ -699,7 +705,9 @@ docker compose down -v
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">최수아</td>
-            <td style="border: 1px solid #ddd; padding: 10px;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">
+              인프라 및 환경 구축 전반을 담당해 프로젝트의 기반을 다져주셨습니다. Runpod 서버부터 Docker 컨테이너 구축, SSH 터널링, CI/CD까지 개발 환경 전체를 세팅해주셨습니다. RunPod 환경에서 예상치 못한 문제들이 연속으로 발생했음에도 끝까지 환경을 잡아내어 개발이 원활히 이루어질 수 있는 토대를 마련해주셨습니다.
+            </td>
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">홍완기</td>
@@ -798,7 +806,9 @@ docker compose down -v
         </tr>
         <tr>
             <td style="text-align: center; border: 1px solid #ddd;">최수아</td>
-            <td style="border: 1px solid #ddd; padding: 10px;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">
+              실제 기능이 원활히 작동하는지 테스트하고, 내부적으로 논리상의 모순이 없는지 꼼꼼히 점검해주셨습니다. 또한 만들어낸 프로젝트의 산출물을 정리하여 문서화해주셔서, 설계 의도와 결과를 파악하기 용이했습니다. 테스트와 품질 평가에도 기여해 서비스의 완성도를 높이는데 큰 도움이 되었습니
+            </td>
         </tr>
     </tbody>
 </table>
