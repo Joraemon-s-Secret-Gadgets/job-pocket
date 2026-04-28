@@ -32,3 +32,8 @@ backend/
 frontend/
 models/
 ingestion/
+
+01_create_databases.sql
+02_create_users.sql
+03_rdb_tables.sql
+04_vector_tables.sql
