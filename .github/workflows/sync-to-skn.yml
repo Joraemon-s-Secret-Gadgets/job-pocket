@@ -1,0 +1,35 @@
+name: Sync to SKN repo
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout source repo
+              uses: actions/checkout@v4
+
+            - name: Clone target repo
+              run: |
+                  git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/SKNETWORKS-FAMILY-AICAMP/SKN26-3rd-1TEAM.git target
+
+            - name: Copy files to target repo
+              run: |
+                  rsync -av \
+                    --exclude='.git' \
+                    --exclude='target' \
+                    ./ target/
+
+            - name: Commit and push
+              run: |
+                  cd target
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
+                  git add .
+                  git commit -m "chore: sync from job-pocket" || echo "no changes to commit"
+                  git push origin main
