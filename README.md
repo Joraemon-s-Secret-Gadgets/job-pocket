@@ -415,6 +415,7 @@ docker compose down -v
 - [프롬프트 엔지니어링 전략](./docs/wiki/src/model/prompt.md)
 - [개발 컨벤션 가이드](./docs/wiki/src/conventions/development.md)
 - [트러블슈팅 리포트](./docs/wiki/src/troubles/README.md)
+- [Retriever 성능 보고서](./docs/wiki/src/tests/evaluation_report.md)
 
 ---
 ### 개인 회고
